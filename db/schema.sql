@@ -15,7 +15,6 @@ CREATE TABLE roles (
     department_id INT NOT NULL,
     FOREIGN KEY (department_id)
     REFERENCES department(id)
-    ON DELETE SET NULL
 );
 
 CREATE TABLE employees (
@@ -26,5 +25,4 @@ CREATE TABLE employees (
     manager_id INT NOT NULL,
     FOREIGN KEY (role_id)
     REFERENCES role(id)
-    ON DELETE SET NULL
 );
