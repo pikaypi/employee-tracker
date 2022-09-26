@@ -1,7 +1,6 @@
 // Import and require the necessary node modules
 const express = require('express');
 const mysql = require('mysql2');
-const inquirer = require('inquirer');
 
 // Assign a server port
 const PORT = process.env.PORT || 3001;
@@ -19,10 +18,8 @@ const db = mysql.createConnection(
         host: 'localhost',
         user: 'root',
         password: 'password',
-        databse: 'employees_db'
-    },
-    // Dev check that the database was connected
-    console.log('Connect to the emploees_db database.')
+        database: 'employees_db'
+    }
 );
 
 app.listen(PORT, () => {
