@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/pikaypi/employee-tracker/issues"
   },
-  "homepage": "https://github.com/pikaypi/employee-tracker#readme"
+  "homepage": "https://github.com/pikaypi/employee-tracker#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "inquirer": "^9.1.2",
+    "mysql2": "^2.3.3"
+  }
 }
