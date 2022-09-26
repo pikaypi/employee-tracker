@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 
 // Assign a server port
-const PORT = process.nextTick.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 // Assign the app variable to express()
 const app = express();
