@@ -23,19 +23,41 @@ const db = mysql.createConnection(
 );
 
 // View all departments
+app.get('/api/departments', (req, res) => {
+    console.log(`${req.method} request received to view departments`)
+});
 
 // View all roles
+app.get('/api/roles', (req, res) => {
+    console.log(`${req.method} received to view roles`);
+});
 
 // View all employees
+app.get('/api/employees', (req, res) => {
+    console.log(`${req.method} request received to view employees`);
+});
 
 // Add a department
+app.post('api/departments', (req, res) => {
+    console.log(`${req.method} request received to add a department`);
+});
 
 // Add a role
+app.post('/api/roles', (req, res) => {
+    console.log(`${req.method} request received to add an employee role`);
+});
 
 // Add an employee
+app.post('/api/employees', (req, res) => {
+    console.log(`${req.method} request received to add an employee`);
+});
 
 // Update an employee
+app.put('/api/employee/:id', (req, res) => {
+    console.log(`${req.method} request received to update an employee`);
+});
 
+// Set the server to listen
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 });
