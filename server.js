@@ -24,17 +24,57 @@ const db = mysql.createConnection(
 
 // View all departments
 app.get('/api/departments', (req, res) => {
-    res.json(`${req.method} request received to view departments`);
+    const sql = `SELECT id, name as Department FROM departments`;
+
+    db.query(sql, (err, rows) => {
+        if (err) {
+            res.status(500).json({ err: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
+    });
 });
 
 // View all roles
 app.get('/api/roles', (req, res) => {
-    res.json(`${req.method} received to view employee roles`);
+    const sql = `SELECT id, title as Role FROM roles`;
+
+    db.query(sql, (err, rows) => {
+        if (err) {
+            res.status(500).json({ err: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
+    });
 });
 
 // View all employees
 app.get('/api/employees', (req, res) => {
-    res.json(`${req.method} request received to view employees`);
+    const sql = `SELECT
+                    employees.id,
+                    first_name as "First Name",
+                    last_name as "Last Name",
+                    roles.title as Title
+                FROM employees
+                JOIN roles
+                WHERE employees.role_id = roles.id`;
+
+    db.query(sql, (err, rows) => {
+        if (err) {
+            res.status(500).json({ err: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
+    });
 });
 
 // Add a department
