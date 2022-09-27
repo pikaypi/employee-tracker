@@ -22,6 +22,20 @@ const db = mysql.createConnection(
     }
 );
 
+// View all departments
+
+// View all roles
+
+// View all employees
+
+// Add a department
+
+// Add a role
+
+// Add an employee
+
+// Update an employee
+
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 });
