@@ -17,14 +17,14 @@ VALUES ('Lead Engineer', 150000, 1),
     ('Service Lead', 100000, 5),
     ('Customer Service', 70000, 5);
 
-INSERT INTO employees (first_name, last_name, role_id)
-VALUES ('Anna', 'Applebaum', 1),
-    ('Brian', 'Beaudet', 2),
-    ('Caroline', 'Chretien', 3),
-    ('Doug', 'Danvers', 4),
-    ('Emma', 'Eastman', 5),
-    ('Frank', 'Fortier', 6),
-    ('Gina', 'Gadsby', 7),
-    ('Henry', 'Hughes', 8),
-    ('Irma', 'Ingalls', 9),
-    ('Jeffrey', 'Jones', 10)
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
+VALUES ('Anna', 'Applebaum', 1, 1),
+    ('Brian', 'Beaudet', 2, 1),
+    ('Caroline', 'Chretien', 3, 3),
+    ('Doug', 'Danvers', 4, 3),
+    ('Emma', 'Eastman', 5, 5),
+    ('Frank', 'Fortier', 6, 5),
+    ('Gina', 'Gadsby', 7, 7),
+    ('Henry', 'Hughes', 8, 7),
+    ('Irma', 'Ingalls', 9, 9),
+    ('Jeffrey', 'Jones', 10, 9)
