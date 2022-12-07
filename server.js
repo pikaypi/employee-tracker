@@ -127,22 +127,30 @@ const viewAllEmployees = () => {
     });
 };
 
-// Add a department
-app.post('/api/departments', (req, res) => {
-    const sql = `INSERT INTO departments (name)
-                VALUES (?)`;
+const addDepartment = () => {
+    const sql = `INSERT INTO departments (name) VALUES (?)`;
 
-    db.query(sql, req.body.name, (err, result) => {
-        if (err) {
-          res.status(400).json({ error: err.message });
-          return;
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Department Name:',
+            name: 'name',
+            validate: function (input) {
+                return validateStr(input)
+            }
         }
-        res.json({
-          message: 'success',
-          data: result
+    ])
+    .then((res) => {
+        db.query(sql, res.name, (err, result) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(`Successfully added ${res.name} to departments`);
+                menu();
+            };
         });
-      });
-});
+    });
+};
 
 // Add a role
 app.post('/api/roles', (req, res) => {
