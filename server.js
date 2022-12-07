@@ -158,7 +158,6 @@ const addDepartment = () => {
 const addRole = () => {
     const sql = `INSERT INTO roles (title, salary, department_id)
                 VALUES (?, ?, ?)`;
-    const params = [req.body.title, req.body.salary, req.body.department_id]
 
     inquirer.prompt([
         {
