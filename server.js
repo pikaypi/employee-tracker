@@ -70,21 +70,18 @@ const menu = () => {
 
 const viewAllDepartments = () => {
     const sql = `SELECT 
-                    id, 
-                    name 
+                    id as ID, 
+                    name as Department 
                 FROM departments`;
-
-    db.query(sql, (err, rows) => {
+    db.query(sql, (err, result) => {
         if (err) {
-            res.status(500).json({ err: err.message });
-            return;
+            console.error(err);
+        } else {
+            console.table(result)
+            menu()
         }
-        res.json({
-            message: 'success',
-            data: rows
-        });
-    });
-});
+    })
+}
 
 // View all roles
 app.get('/api/roles', (req, res) => {
