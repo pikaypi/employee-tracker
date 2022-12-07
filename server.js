@@ -103,28 +103,29 @@ const viewAllRoles = () => {
     });
 };
 
-// View all employees
-app.get('/api/employees', (req, res) => {
+const viewAllEmployees = () => {
     const sql = `SELECT
-                    employees.id,
+                    employees.id as ID,
                     first_name as "First Name",
                     last_name as "Last Name",
-                    roles.title as Title
+                    departments.name as Department,
+                    roles.title as Title,
+                    roles.salary as Salary,
+                    manager_id as "Manager ID"
                 FROM employees
-                JOIN roles
-                WHERE employees.role_id = roles.id`;
-
-    db.query(sql, (err, rows) => {
+                JOIN roles, departments
+                WHERE employees.role_id = roles.id
+                AND roles.department_id = departments.id`;
+    
+    db.query(sql, (err, result) => {
         if (err) {
-            res.status(500).json({ err: err.message });
-            return;
-        }
-        res.json({
-            message: 'success',
-            data: rows
-        });
+            console.error(err);
+        } else {
+            console.table(result)
+            menu()
+        };
     });
-});
+};
 
 // Add a department
 app.post('/api/departments', (req, res) => {
