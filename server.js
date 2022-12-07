@@ -125,7 +125,19 @@ app.post('/api/roles', (req, res) => {
 
 // Add an employee
 app.post('/api/employees', (req, res) => {
-    res.json(`${req.method} request received to add an employee`);
+    const sql = `INSERT INTO employees (firt_name, last_name, role_id, manager_id)
+                VALUES (?, ?, ?, ?)`;
+
+    db.query(sql, [req.body.first_name, req.body.last_name, req.body.role_id, req.body.manager_id], (err, result) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        res.json({
+          message: 'success',
+          data: req.body
+        });
+    });
 });
 
 // Update an employee
