@@ -90,10 +90,9 @@ app.get('/api/employees', (req, res) => {
 // Add a department
 app.post('/api/departments', (req, res) => {
     const sql = `INSERT INTO departments (name)
-    VALUES (?)`;
-    const params = req.body.name
+                VALUES (?)`;
 
-    db.query(sql, params, (err, result) => {
+    db.query(sql, req.body.name, (err, result) => {
         if (err) {
           res.status(400).json({ error: err.message });
           return;
@@ -108,7 +107,7 @@ app.post('/api/departments', (req, res) => {
 // Add a role
 app.post('/api/roles', (req, res) => {
     const sql = `INSERT INTO roles (title, salary, department_id)
-        VALUES (?, ?, ?)`;
+                VALUES (?, ?, ?)`;
     const params = [req.body.title, req.body.salary, req.body.department_id]
 
     db.query(sql, params, (err, result) => {
@@ -120,7 +119,7 @@ app.post('/api/roles', (req, res) => {
           message: 'success',
           data: req.body
         });
-      });
+    });
 });
 
 // Add an employee
