@@ -40,7 +40,7 @@ app.get('/api/departments', (req, res) => {
 
 // View all roles
 app.get('/api/roles', (req, res) => {
-    const sql = `SELECT id, title as Role FROM roles`;
+    const sql = `SELECT roles.id, roles.title, departments.name as department, roles.salary FROM roles JOIN departments ON roles.department_id = departments.id`;
 
     db.query(sql, (err, rows) => {
         if (err) {
@@ -97,7 +97,20 @@ app.post('/api/departments', (req, res) => {
 
 // Add a role
 app.post('/api/roles', (req, res) => {
-    res.json(`${req.method} request received to add an employee role`);
+    const sql = `INSERT INTO roles (title, salary, department_id)
+        VALUES (?, ?, ?)`;
+    const params = [req.body.title, req.body.salary, req.body.department_id]
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        res.json({
+          message: 'success',
+          data: req.body
+        });
+      });
 });
 
 // Add an employee
