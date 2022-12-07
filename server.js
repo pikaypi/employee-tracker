@@ -195,22 +195,55 @@ const addRole = () => {
     });
 };
 
-// Add an employee
-app.post('/api/employees', (req, res) => {
-    const sql = `INSERT INTO employees (firt_name, last_name, role_id, manager_id)
+const addEmployee = () => {
+    const sql = `INSERT INTO employees (first_name, last_name, role_id, manager_id)
                 VALUES (?, ?, ?, ?)`;
 
-    db.query(sql, [req.body.first_name, req.body.last_name, req.body.role_id, req.body.manager_id], (err, result) => {
-        if (err) {
-          res.status(400).json({ error: err.message });
-          return;
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'First Name:',
+            name: 'first_name',
+            validate: function (input) {
+                validateStr(input)
+            }
+        },
+        {
+            type: 'input',
+            message: 'Last Name:',
+            name: 'last_name',
+            validate: function (input) {
+                validateStr(input)
+            }
+        },
+        {
+            type: 'number',
+            message: 'Role ID:',
+            name: 'role_id',
+            validate: function (input) {
+                validateNum(input)
+            }
+        },
+        {
+            type: 'number',
+            message: 'Manager ID:',
+            name: 'manager_id',
+            validate: function (input) {
+                validateNum(input)
+            }
         }
-        res.json({
-          message: 'success',
-          data: req.body
+    ])
+    .then((res) => {
+        db.query(sql, [res.first_name, res.last_name, res.role_id, res.manager_id], (err, result) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(`Successfully added ${res.first_name} ${res.last_name} to employees`);
+                menu();
+            };
         });
     });
-});
+};
 
 // Update an employee
 app.put('/api/employees/:id', (req, res) => {
