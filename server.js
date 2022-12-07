@@ -22,8 +22,53 @@ const db = mysql.createConnection(
     }
 );
 
-// View all departments
-app.get('/api/departments', (req, res) => {
+const menu = () => {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'What would you like to do?',
+            name: 'choice',
+            choices: [
+                'View All Employees',
+                'Add Employee',
+                'Update Employee Role',
+                'View All Roles',
+                'Add Role',
+                'View All Departments',
+                'Add Department'
+            ]
+        }
+    ])
+    .then((res) => {
+        switch (res.choice) {
+            case 'View All Employees':
+                viewAllEmployees();
+                break;
+            case 'Add Employee':
+                addEmployee();
+                break;
+            case 'Update Employee Role':
+                updateEmployee();
+                break;
+            case 'View All Roles':
+                viewAllRoles();
+                break;
+            case 'Add Role':
+                addRole();
+                break; 
+            case 'View All Departments':
+                viewAllDepartments();
+                break;
+            case 'Add Department':
+                addDepartment();
+                break;       
+            default:
+                break;
+        }
+    })
+}
+
+const viewAllDepartments = () => {
     const sql = `SELECT 
                     id, 
                     name 
