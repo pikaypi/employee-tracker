@@ -24,7 +24,10 @@ const db = mysql.createConnection(
 
 // View all departments
 app.get('/api/departments', (req, res) => {
-    const sql = `SELECT id, name as Department FROM departments`;
+    const sql = `SELECT 
+                    id, 
+                    name 
+                FROM departments`;
 
     db.query(sql, (err, rows) => {
         if (err) {
@@ -40,7 +43,14 @@ app.get('/api/departments', (req, res) => {
 
 // View all roles
 app.get('/api/roles', (req, res) => {
-    const sql = `SELECT roles.id, roles.title, departments.name as department, roles.salary FROM roles JOIN departments ON roles.department_id = departments.id`;
+    const sql = `SELECT
+                    roles.id,
+                    roles.title,
+                    departments.name as department,
+                    roles.salary
+                FROM roles
+                JOIN departments
+                WHERE roles.department_id = departments.id`;
 
     db.query(sql, (err, rows) => {
         if (err) {
