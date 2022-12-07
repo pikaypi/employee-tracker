@@ -245,24 +245,60 @@ const addEmployee = () => {
     });
 };
 
-// Update an employee
-app.put('/api/employees/:id', (req, res) => {
-    const sql = `UPDATE employees 
-                SET role_id = ? 
-                WHERE id = ?`
-    const params = [req.body.role_id, req.params.id]
-
-    db.query(sql, params, (err, result) => {
+const updateEmployee = () => {
+    db.query('SELECT * FROM employees', (err, employeesRows) => {
         if (err) {
-            res.status(400).json({ error: err.message });
-            return;
-        }
-        res.json({
-            message: 'success',
-            data: req.body
-        });
+            console.error(err);
+        } else {
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    message: `Which employee's role would you like to update?`,
+                    name: 'employee',
+                    choices: employeesRows.map((employee) => `${employee.id}: ${employee.first_name} ${employee.last_name}`)
+                }
+            ]).then((data) => {
+                const employee = {
+                    id: data.employee.split(':')[0],
+                    name: data.employee.split(':')[1].trim()
+                }
+                db.query(`SELECT * FROM employees WHERE id = ?`, employee.id, (err, employee_id) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        db.query(`SELECT * FROM roles`, (err, allRoles) => {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                inquirer.prompt([
+                                    {
+                                        type: 'list',
+                                        message: `What should ${employee.name}'s new role be?`,
+                                        name: 'newRole',
+                                        choices: allRoles.map((role) => `${role.id}: ${role.title}`)
+                                    }
+                                ]).then((res) => {
+                                    const newRole = {
+                                        id: res.newRole.split(':')[0],
+                                        title: res.newRole.split(':')[1].trim()
+                                    }
+                                    db.query('UPDATE employees SET role_id = ? WHERE id = ?', [newRole.id, employee.id], (err, res) => {
+                                        if (err) {
+                                            console.error(err);
+                                        } else {
+                                            console.log(`${employee.name} is now a ${newRole.title}`);
+                                            menu();
+                                        }
+                                    })
+                                })
+                            };
+                        });
+                    };
+                });
+            });
+        };
     });
-});
+};
 
 // Set the server to listen
 app.listen(PORT, () => {
