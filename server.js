@@ -152,23 +152,48 @@ const addDepartment = () => {
     });
 };
 
-// Add a role
-app.post('/api/roles', (req, res) => {
+const addRole = () => {
     const sql = `INSERT INTO roles (title, salary, department_id)
                 VALUES (?, ?, ?)`;
     const params = [req.body.title, req.body.salary, req.body.department_id]
 
-    db.query(sql, params, (err, result) => {
-        if (err) {
-          res.status(400).json({ error: err.message });
-          return;
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Role Title:',
+            name: 'title',
+            validate: function (input) {
+                validateStr(input)        
+            }
+        },
+        {
+            type: 'number',
+            message: 'Salary:',
+            name: 'salary',
+            validate: function (input) {
+                validateNum(input)
+            }
+        },
+        {
+            type: 'number',
+            message: 'Department ID:',
+            name: 'department_id',
+            validate: function (input) {
+                validateNum(input)
+            }
         }
-        res.json({
-          message: 'success',
-          data: req.body
+    ])
+    .then((res) => {
+        db.query(sql, [res.title, res.salary, res.department_id], (err, result) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(`Successfully added ${res.title} to roles`);
+                menu();
+            };
         });
     });
-});
+};
 
 // Add an employee
 app.post('/api/employees', (req, res) => {
