@@ -83,28 +83,25 @@ const viewAllDepartments = () => {
     })
 }
 
-// View all roles
-app.get('/api/roles', (req, res) => {
+const viewAllRoles = () => {
     const sql = `SELECT
-                    roles.id,
-                    roles.title,
-                    departments.name as department,
-                    roles.salary
+                    roles.id as ID,
+                    roles.title as Title,
+                    departments.name as Department,
+                    roles.salary as Salary
                 FROM roles
                 JOIN departments
                 WHERE roles.department_id = departments.id`;
-
-    db.query(sql, (err, rows) => {
+    
+    db.query(sql, (err, result) => {
         if (err) {
-            res.status(500).json({ err: err.message });
-            return;
-        }
-        res.json({
-            message: 'success',
-            data: rows
-        });
+            console.error(err);
+        } else {
+            console.table(result)
+            menu()
+        };
     });
-});
+};
 
 // View all employees
 app.get('/api/employees', (req, res) => {
