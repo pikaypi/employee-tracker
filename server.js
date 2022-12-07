@@ -79,7 +79,20 @@ app.get('/api/employees', (req, res) => {
 
 // Add a department
 app.post('/api/departments', (req, res) => {
-    res.json(`${req.method} request received to add a department`);
+    const sql = `INSERT INTO departments (name)
+    VALUES (?)`;
+    const params = req.body.name
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+          return;
+        }
+        res.json({
+          message: 'success',
+          data: result
+        });
+      });
 });
 
 // Add a role
