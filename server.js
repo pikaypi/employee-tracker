@@ -1,6 +1,9 @@
 // Import and require the necessary node modules
 const express = require('express');
 const mysql = require('mysql2');
+const inquirer = require('inquirer');
+const cTable = require('console.table');
+const { validateStr, validateNum } = require('./helpers/validate');
 
 // Assign a server port
 const PORT = process.env.PORT || 3001;
