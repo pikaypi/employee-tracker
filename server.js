@@ -307,3 +307,6 @@ const updateEmployee = () => {
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 });
+
+// Call the menu to run when the application starts
+menu()
