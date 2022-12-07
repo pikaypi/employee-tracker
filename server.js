@@ -142,7 +142,21 @@ app.post('/api/employees', (req, res) => {
 
 // Update an employee
 app.put('/api/employees/:id', (req, res) => {
-    res.json(`${req.method} request received to update an employee`);
+    const sql = `UPDATE employees 
+                SET role_id = ? 
+                WHERE id = ?`
+    const params = [req.body.role_id, req.params.id]
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: req.body
+        });
+    });
 });
 
 // Set the server to listen
