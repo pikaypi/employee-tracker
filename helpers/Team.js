@@ -62,6 +62,3 @@ class Team {
 };
 
 module.exports = Team;
-
-const menu = new Team();
-menu.menu();
