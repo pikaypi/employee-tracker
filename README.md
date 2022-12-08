@@ -23,6 +23,7 @@ npm run start
 
 ---
 ## Usage
+[Usage Walkthrough Video](https://drive.google.com/file/d/1rsVZEGVetV3cjvEc2A_o9Mb1uAGS2lVt/view)
 #### Viewing Data
 - When the user selects "View all Employees", "View all Roles", or "View all Departments", a table of the requested information will display and the menu will reset.
 #### Adding Data
