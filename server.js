@@ -167,7 +167,7 @@ const addRole = () => {
             message: 'Role Title:',
             name: 'title',
             validate: function (input) {
-                validateStr(input)        
+                return validateStr(input)        
             }
         },
         {
@@ -175,7 +175,7 @@ const addRole = () => {
             message: 'Salary:',
             name: 'salary',
             validate: function (input) {
-                validateNum(input)
+                return validateNum(input)
             }
         },
         {
@@ -183,7 +183,7 @@ const addRole = () => {
             message: 'Department ID:',
             name: 'department_id',
             validate: function (input) {
-                validateNum(input)
+                return validateNum(input)
             }
         }
     ])
@@ -211,7 +211,7 @@ const addEmployee = () => {
             message: 'First Name:',
             name: 'first_name',
             validate: function (input) {
-                validateStr(input)
+                return validateStr(input)
             }
         },
         {
@@ -219,7 +219,7 @@ const addEmployee = () => {
             message: 'Last Name:',
             name: 'last_name',
             validate: function (input) {
-                validateStr(input)
+                return validateStr(input)
             }
         },
         {
@@ -227,7 +227,7 @@ const addEmployee = () => {
             message: 'Role ID:',
             name: 'role_id',
             validate: function (input) {
-                validateNum(input)
+                return validateNum(input)
             }
         },
         {
@@ -235,7 +235,7 @@ const addEmployee = () => {
             message: 'Manager ID:',
             name: 'manager_id',
             validate: function (input) {
-                validateNum(input)
+                return validateNum(input)
             }
         }
     ])
