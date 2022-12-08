@@ -148,7 +148,9 @@ const addDepartment = () => {
             if (err) {
                 console.error(err);
             } else {
+                console.log('');
                 console.log(`Successfully added ${res.name} to departments`);
+                console.log('');
                 menu();
             };
         });
@@ -190,7 +192,9 @@ const addRole = () => {
             if (err) {
                 console.error(err);
             } else {
+                console.log('');
                 console.log(`Successfully added ${res.title} to roles`);
+                console.log('');
                 menu();
             };
         });
@@ -240,7 +244,9 @@ const addEmployee = () => {
             if (err) {
                 console.error(err);
             } else {
+                console.log('');
                 console.log(`Successfully added ${res.first_name} ${res.last_name} to employees`);
+                console.log('');
                 menu();
             };
         });
@@ -288,7 +294,9 @@ const updateEmployee = () => {
                                         if (err) {
                                             console.error(err);
                                         } else {
+                                            console.log('');
                                             console.log(`${employee.name} is now a ${newRole.title}`);
+                                            console.log('');
                                             menu();
                                         }
                                     })
